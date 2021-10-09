@@ -10,7 +10,7 @@
  *  3. INTEGER upperBound
  */
 
-function countAnalogousArrays(arr, l, u) {
+function countAnalogousArrays(arr: number[], l: number, u: number): number {
   let a = 0;
   let max = 0;
   let min = 0;
@@ -41,20 +41,20 @@ function countAnalogousArrays(arr, l, u) {
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
-var nextPermutation = function (nums) {
+var nextPermutation = function (nums: number[]): number[] {
   let swapStart = 0;
   let swapEnd = 0;
   let found = false;
 
   // will need a swap function
-  const swap = function (nums, i, j) {
+  const swap = function (nums: number[], i:number, j:number): void {
     let temp = nums[i];
     nums[i] = nums[j];
     nums[j] = temp;
   }
 
   // will need a reverse function
-  const reverse = function (nums, start) {
+  const reverse = function (nums: number[], start: number): void {
     let i = start;
     let j = nums.length - 1;
 
@@ -101,5 +101,22 @@ var nextPermutation = function (nums) {
 
 
 
+function howSum(target: number, nums: number[], memo: {[key: number]: number[] | null} = {}): number[] | null {
+  if (target in memo) { return memo[target]}
+  if (target === 0) return [];
+  if (target < 0) return null;
 
+  for (let num of nums) {
+    let remainder: number = target - num;
+    let remainderResult: any = howSum(remainder, nums, memo);
+    if (remainderResult !== null) {
+      memo[target] = [...remainderResult, num];
+      return [...remainderResult, num];
+    }
+  }
 
+  memo[target] = null;
+  return null;
+}
+
+console.log(howSum(300, [4,3,5,1,6,2]));
