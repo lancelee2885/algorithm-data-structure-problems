@@ -69,7 +69,7 @@ var nextPermutation = function (nums) {
   // 2. once the idx is found, starting at that idx+1, find the number just larger than that idx;
   // 3. flip the two positions
   // 4. reverse everything on the right side of right swapped position.
-  
+
   for (let i = nums.length - 1; i >= 0; i--) {
     if (nums[i - 1] < nums[i]) {
       found = true;
@@ -84,11 +84,20 @@ var nextPermutation = function (nums) {
     if (found === true) {
       swap(nums, swapStart, swapEnd);
       reverse(nums, swapStart + 1);
-      return
+      return nums;
     }
   }
   reverse(nums, 0);
+  return nums;
 };
+
+// console.log(nextPermutation([1,2,3]));
+// console.log(nextPermutation([5,3,6,2,1,7]));
+// console.log(nextPermutation([0,0,0,0,0,0]));
+// console.log(nextPermutation([1,0,0,0,0,0]));
+// console.log(nextPermutation([0,0,0,1,2]));
+// console.log(nextPermutation([5,4,3,1,0]));
+
 
 
 
