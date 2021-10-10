@@ -189,21 +189,39 @@ function minimumJumps(
  */
 
 function canCompleteCircuit(gas: number[], cost: number[]): number {
-  for (let i = 0; i < gas.length; i++) {
-    let currentGas = gas[i];
-    let numberOfStations = 0;
-    for (let j = i; j < cost.length; j++) {
-      currentGas = currentGas - cost[j];
-      if (currentGas < 0) break;
-      numberOfStations++;
-      if (cost[j + 1]) {
-        currentGas = currentGas + gas[j + 1];
-      } else {
-        j = -1;
-        currentGas = currentGas + gas[0];
-      }
-      if (numberOfStations === gas.length) return i;
+  // for (let i = 0; i < gas.length; i++) {
+  //   let currentGas = gas[i];
+  //   let numberOfStations = 0;
+  //   for (let j = i; j < cost.length; j++) {
+  //     currentGas = currentGas - cost[j];
+  //     if (currentGas < 0) break;
+  //     numberOfStations++;
+  //     if (cost[j + 1]) {
+  //       currentGas = currentGas + gas[j + 1];
+  //     } else {
+  //       j = -1;
+  //       currentGas = currentGas + gas[0];
+  //     }
+  //     if (numberOfStations === gas.length) return i;
+  //   }
+  // }
+  // return -1;
+
+  let totalTank = 0;
+  let currTank = 0;
+  let start = 0;
+
+  for (let i = 0; i<gas.length; i++){
+    totalTank += gas[i] - cost[i];
+    currTank += gas[i] - cost[i];
+
+    if (currTank < 0) {
+      currTank = 0;
+      start ++;
     }
   }
+
+  if (totalTank >= 0) return start;
   return -1;
+
 }
