@@ -211,17 +211,50 @@ function canCompleteCircuit(gas: number[], cost: number[]): number {
   let currTank = 0;
   let start = 0;
 
-  for (let i = 0; i<gas.length; i++){
+  for (let i = 0; i < gas.length; i++) {
     totalTank += gas[i] - cost[i];
     currTank += gas[i] - cost[i];
 
     if (currTank < 0) {
       currTank = 0;
-      start = i+1;
+      start = i + 1;
     }
   }
 
   if (totalTank >= 0) return start;
   return -1;
-
 }
+
+/** Leetcode 696
+ * Give a binary string s, return the number of non-empty substrings that have the same number of 0's and 1's,
+ * and all the 0's and all the 1's in these substrings are grouped consecutively.
+ *
+ * Substrings that occur multiple times are counted the number of times they occur.
+ */
+
+var countBinarySubstrings = function (s: string): number {
+  let result = 0;
+  let prevRepeat = 1;
+  let repeat = 1;
+
+  for (let i = 1; i < s.length; i++) {
+    if (s[i] !== s[i - 1]) {
+      result++;
+      prevRepeat = repeat;
+      repeat = 1;
+      continue;
+    } else {
+      repeat++;
+    }
+
+    if (prevRepeat >= repeat) {
+      result++;
+    }
+  }
+
+  return result;
+};
+
+console.log(countBinarySubstrings('1010101')) // 6
+console.log(countBinarySubstrings('0')) // 0
+console.log(countBinarySubstrings('11001100')) // 6
