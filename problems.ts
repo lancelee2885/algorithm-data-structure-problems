@@ -255,6 +255,18 @@ var countBinarySubstrings = function (s: string): number {
   return result;
 };
 
-console.log(countBinarySubstrings('1010101')) // 6
-console.log(countBinarySubstrings('0')) // 0
-console.log(countBinarySubstrings('11001100')) // 6
+// console.log(countBinarySubstrings('1010101')) // 6
+// console.log(countBinarySubstrings('0')) // 0
+// console.log(countBinarySubstrings('11001100')) // 6
+
+/** Leetcode 104 Depth of binary tree.
+ * note that root is a node 
+ */
+
+// var maxDepth = function (root) {
+//   if (!root) return 0;
+
+//   let left = maxDepth(root.left);
+//   let right = maxDepth(root.right);
+//   return Math.max(left, right) + 1;
+// };
