@@ -99,8 +99,16 @@ var nextPermutation = function (nums: number[]): number[] {
 // console.log(nextPermutation([5,4,3,1,0]));
 
 
-
-
+/** Practice on how to use memoization and recursion on DP.
+ * 
+ * Given a target and an array of numbers, return any combination that can sum up to the target. 
+ * Numbers can be used more than once.
+ * 
+ * @param target 
+ * @param nums 
+ * @param memo 
+ * @returns combination of numbers in an array
+ */
 function howSum(target: number, nums: number[], memo: {[key: number]: number[] | null} = {}): number[] | null {
   if (target in memo) { return memo[target]}
   if (target === 0) return [];
@@ -119,4 +127,49 @@ function howSum(target: number, nums: number[], memo: {[key: number]: number[] |
   return null;
 }
 
-console.log(howSum(300, [4,3,5,1,6,2]));
+// console.log(howSum(300, [7,14,3]));
+
+/** Leetcode 16
+ * 
+ * A certain bug's home is on the x-axis at position x. Help them get there from position 0.
+ * 
+ * The bug jumps according to the following rules:
+ * It can jump exactly a positions forward (to the right).
+ * It can jump exactly b positions backward (to the left). 
+ * It cannot jump backward twice in a row.
+ * It cannot jump to any forbidden positions.
+ * The bug may jump forward beyond its home, but it cannot jump to positions numbered with negative integers.
+ * 
+ * Given an array of integers forbidden, where forbidden[i] means that the bug cannot jump to the position forbidden[i], 
+ * and integers a, b, and x, return the minimum number of jumps needed for the bug to reach its home. 
+ * If there is no possible sequence of jumps that lands the bug on position x, return -1.
+ * 
+ */
+
+function minimumJumps(forbidden: number[], a: number, b: number, x:number ): number {
+
+  let visited = new Set(forbidden);
+  let step = 0;
+  let queue: any = [[0, false]];
+  let limit = 2000 + b;
+  
+  while (queue) {
+    let size = queue.length;
+
+    while (size) {
+      let [cur, is_backward] = queue.shift();
+      size--;
+
+      if (cur === x) return step;
+      if (visited.has(cur)) continue;
+      visited.add(cur);
+
+      if (is_backward === false && cur-b > 0) queue.push([cur-b, true]);
+      if (cur+a <= limit) queue.push([cur+a, false]);
+    }
+
+    step++;
+  }
+  return -1;
+}
+console.log(minimumJumps([14,4,18,1,15], 3, 15, 9));
