@@ -217,7 +217,7 @@ function canCompleteCircuit(gas: number[], cost: number[]): number {
 
     if (currTank < 0) {
       currTank = 0;
-      start ++;
+      start = i+1;
     }
   }
 
