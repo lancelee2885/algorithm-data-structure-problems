@@ -262,7 +262,7 @@ var countBinarySubstrings = function (s: string): number {
 /** Leetcode 104 Depth of binary tree.
  * note that root is a node 
  */
-
+// DFS
 // var maxDepth = function (root) {
 //   if (!root) return 0;
 
@@ -270,3 +270,91 @@ var countBinarySubstrings = function (s: string): number {
 //   let right = maxDepth(root.right);
 //   return Math.max(left, right) + 1;
 // };
+
+// BFS
+// var maxDepth = function(root) {
+//   let stack = [];
+//   let depth = 0;
+//   if (root) stack.push([1, root]);
+      
+//   while (stack.length) {
+//       let [currentDepth, node] = stack.pop();
+//       if (node) {
+//           depth = Math.max(depth, currentDepth);
+//           stack.push([currentDepth + 1, node.left]);
+//           stack.push([currentDepth + 1, node.right]);
+//       }
+//   }
+  
+//   return depth;
+// };
+
+/** Given two strings s1 and s2, 
+ * we need to find the minimum number of manipulations required to make 
+ * two strings anagram without deleting any character. 
+ */
+
+function minimumAnagram(s1: string, s2:string): number {
+  let counter1: any = {};
+  let counter2: any = {};
+  let result = 0;
+
+  for (let ltr of s1){
+    counter1[ltr] = (ltr in counter1) ? counter1[ltr]++ : 1;
+  }
+
+  for (let ltr of s2){
+    counter2[ltr] = (ltr in counter2) ? counter2[ltr]++ : 1;
+  }
+
+  for (let i=0; i<s1.length; i++) {
+    if(s1[i] in counter2) {
+      counter2[s1[i]]--;
+      if(counter2[s1[i]] <= 0){
+        delete counter2[s1[i]];
+      }
+    } 
+  }
+
+  for (let count in counter2){
+    result += counter2[count];
+  }
+
+  return result;
+}
+
+
+// console.log(minimumAnagram('ddcf', 'cedk'));
+// console.log(minimumAnagram('aba', 'baa'));
+// console.log(minimumAnagram('abacdefg', 'baacdefg'));
+// console.log(minimumAnagram('abacdefgi', 'baacdefgx'));
+
+/**
+ * Given arr[] a and arr[] b, return numbers of time when difference between arrA[i] and arrB[i] 
+ * is greater than K
+ */
+
+function reductorArray(arrA: number[], arrB: number[], k: number): number{
+
+  let largest = -Infinity;
+  let smallest = Infinity;
+
+  for (let num of arrB) {
+    largest = Math.max(largest, num);
+    smallest = Math.min(smallest, num);
+  }
+
+  let count = 0;
+
+  for (let num of arrA){
+    if (Math.abs(largest - num) > k ||
+        Math.abs(smallest - num) > k) {
+      count ++
+    }
+  }
+
+  return count;
+}
+
+// console.log(reductorArray([1,2,3], [5,6,7], 4));
+// console.log(reductorArray([], [1,2,3], 0));
