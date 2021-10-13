@@ -13,23 +13,28 @@ function countAnalogousArrays(arr: number[], l: number, u: number): number {
   let a = 0;
   let max = 0;
   let min = 0;
-  for (let i = 0; i < arr.length; i++) {
+
+  for (let i=0; i<arr.length; i++) {
     a = a - arr[i];
-    max = Math.max(a, max); // l-0
-    min = Math.min(a, min); // l-5
+    max = Math.max(a, max);
+    min = Math.min(a, min);
   }
+
   max = u - max;
   min = l - min;
 
-  if (max - min + 1 >= 0) return max - min + 1;
-  else return 0;
+  if (max - min + 1 >= 0){
+    return max - min + 1;
+  }
+
+  return 0;
 }
 
-// console.log(countAnalogousArrays([-2, -1, -2, 5], 3, 10));
-// console.log(countAnalogousArrays([-1, -1, -1, -1], 1, 10));
-// console.log(countAnalogousArrays([0,0,0,5,0,0], 1, 10));
-// console.log(countAnalogousArrays([0,0,0,0,0,0], 1, 10));
-// console.log(countAnalogousArrays([10,-10,10,-10,10,-10], 0, 10));
+console.log(countAnalogousArrays([-2, -1, -2, 5], 3, 10));
+console.log(countAnalogousArrays([-1, -1, -1, -1], 1, 10));
+console.log(countAnalogousArrays([0,0,0,5,0,0], 1, 10));
+console.log(countAnalogousArrays([0,0,0,0,0,0], 1, 10));
+console.log(countAnalogousArrays([10,-10,10,-10,10,-10], 0, 10));
 
 /** Leetcode 31:
  * Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
